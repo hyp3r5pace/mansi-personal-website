@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  /* Indigo */
+  --color-ink-indigo: #1f2a56;
+  --color-indigo-deep: #14193a;
+  --color-indigo-soft: #3a4a8a;
+
+  /* Marigold + warm accents */
+  --color-marigold: #e8a33d;
+  --color-marigold-deep: #c97a1a;
+  --color-saffron: #f2c36b;
+
+  /* Secondary accents */
+  --color-rose-madder: #b5495b;
+  --color-leaf-green: #6b8e4e;
+
+  /* Neutrals: paper + cotton */
+  --color-paper: #f6efe2;
+  --color-paper-deep: #ece2ce;
+  --color-cotton: #faf6ec;
+  --color-char-ink: #2a2620;
+
+  /* Type stacks (variable names injected by next/font in layout.tsx) */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-caveat), ui-serif, cursive;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-char-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: var(--color-marigold);
+    color: var(--color-ink-indigo);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-marigold-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Paper-grain texture overlay. Pseudo-element so it never blocks pointer events. */
+  .paper-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("/textures/paper-grain.svg");
+    background-repeat: repeat;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+
+  /* Hand-drawn dashed border (kantha stitch feel) */
+  .stitch-border {
+    border: 1.5px dashed currentColor;
+    border-radius: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
