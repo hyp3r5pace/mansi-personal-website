@@ -50,22 +50,25 @@ Legend:
 ## Phase 1 — Layout Shell
 
 ### 1.1 Primitives
-- [ ] `StitchBorder` — SVG dashed border component (configurable corners, color, weight)
-- [ ] `JaliReveal` — mask-based reveal using a jali SVG pattern
-- [ ] `ScribbleArrow` — hand-drawn SVG arrow, animatable
-- [ ] `PaperSurface` — wrapper that applies grain texture + paper background
+- [x] `StitchBorder` — SVG rect with `stroke-dasharray`, configurable color/weight/dash/gap/radius
+- [x] `JaliReveal` — inline SVG `<pattern>` with `currentColor` strokes, fade gradient mask
+- [x] `ScribbleArrow` — hand-drawn SVG arrow, rotates per `direction` prop
+- [x] `PaperSurface` — polymorphic wrapper, 4 tones, applies grain
 
 ### 1.2 Global layout
-- [ ] `app/(site)/layout.tsx` with `<Nav>`, `<main>`, `<Footer>`
-- [ ] `Nav`: wordmark left, 5 links right, active state with marigold underline
-- [ ] `Nav` mobile: hamburger → full-screen panel with jali backdrop
-- [ ] `Footer`: socials, credit line, back-to-top stitched button
-- [ ] Verify nav keyboard-accessible (Tab, Esc to close mobile panel)
+- [x] `app/(site)/layout.tsx` with `<Nav>`, `<PageTransition>`, `<Footer>`
+- [x] `Nav`: wordmark left, 5 links right, active state with `layoutId` marigold underline
+- [x] `Nav` mobile: hamburger → full-screen panel with jali backdrop, staggered link entrance
+- [x] `Footer`: socials, credit line, `BackToTop` with scribble arrow
+- [x] Nav keyboard-accessible: Esc closes mobile, body scroll lock when open, aria-expanded/controls
 
 ### 1.3 Motion plumbing
-- [ ] Install Framer Motion + Lenis
-- [ ] Add `prefers-reduced-motion` hook + global guard
-- [ ] Set up page transition wrapper (fade + slight rise)
+- [x] motion + Lenis installed (Phase 0)
+- [x] `prefers-reduced-motion` respected in SmoothScrollProvider, PageTransition, Nav, BackToTop
+- [x] `PageTransition` wrapper: fade + rise on path change, AnimatePresence mode="wait"
+
+### 1.4 Placeholder routes (so nav works during build)
+- [x] /projects, /blog, /about, /contact — minimal placeholders pointing to upcoming phase
 
 ---
 

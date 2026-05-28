@@ -28,7 +28,7 @@ export default function Home() {
       </div>
 
       <p className="text-char-ink/50 mt-24 font-mono text-xs uppercase tracking-widest">
-        Phase 0 · foundations complete
+        Phase 1 · layout shell
       </p>
     </main>
   );
