@@ -75,33 +75,38 @@ Legend:
 ## Phase 2 — Home
 
 ### 2.1 Hero
-- [ ] Layout: name + tagline + CTA on left, framed image right
-- [ ] SVG block-print border on hero image, animates in on load
-- [ ] Background jali bleed from right edge
-- [ ] Marigold CTA "See the work" → `/projects`
+- [x] Layout: name + tagline + CTA on left, framed image right
+- [x] SVG block-print border (`HeroBorder`) with `pathLength` draw-in on mount
+- [x] Background jali bleed from right edge
+- [x] Marigold CTA "See the work" → `/projects` with scribble arrow
 
 ### 2.2 Featured projects
-- [ ] Read MDX projects, filter `featured: true`, sort by date
-- [ ] Asymmetric grid: one large + two stacked
-- [ ] Tile: cover + title + palette swatch row
-- [ ] Hover: lift + marigold underline + swatch animation
+- [x] Read MDX projects, filter `featured: true`, sort by date
+- [x] Asymmetric grid: 1 large + 2 stacked (scales gracefully for N=1,2)
+- [x] Tile: cover + category/year + title + palette swatch row
+- [x] Hover: lift + marigold underline grow + swatch scale
+- [x] 2 additional sample projects added (`bandhani-monsoon`, `jamdani-quietude`)
 
 ### 2.3 About teaser
-- [ ] Short paragraph + portrait with kantha-stitch frame
-- [ ] "More about me →" with scribbled arrow
+- [x] Portrait placeholder in `StitchBorder` (kantha-stitch frame)
+- [x] Short paragraph + "More about me →" with scribbled arrow
 
 ### 2.4 Latest journal
-- [ ] Pull 3 most recent blog posts
-- [ ] Horizontal card row (cover, date in Caveat, title in serif)
+- [x] Pull 3 most recent posts from MDX
+- [x] 3-column card row: date in Caveat, title in serif, excerpt clamp-2
 
 ### 2.5 Contact strip
-- [ ] Full-width indigo band with marigold text + email + Instagram
-- [ ] Hover state on links
+- [x] Full-width indigo band with marigold text + jali bleed left
+- [x] CTA + Instagram link, hover states
 
 ### 2.6 QA
-- [ ] Reduced-motion fallback verified
-- [ ] Lighthouse pass on home (>90 each category)
-- [ ] iOS Safari + Android Chrome check
+- [x] Reduced-motion fallback in HeroBorder, Reveal, PageTransition, Nav, SmoothScroll
+- [ ] Lighthouse pass on home (>90 each category) _(blocked: needs deployed URL or local serve)_
+- [ ] iOS Safari + Android Chrome check _(blocked: real-device testing)_
+
+### 2.7 Notes
+- Real photos not yet supplied → `EditorialPlaceholder` renders palette-band SVG covers from MDX `palette` frontmatter. Swaps to real images once `/public/projects/<slug>/cover.jpg` arrives (cover string already pointing there).
+- `Reveal` component (`whileInView`) added in `components/motion/Reveal.tsx` for scroll-triggered fade-in.
 
 ---
 
