@@ -12,6 +12,21 @@ const SwatchSchema = z.object({
   hex: z.string().regex(/^#[0-9A-Fa-f]{3,8}$/),
 });
 
+const MoodBoardImageSchema = z.object({
+  src: z.string().optional(),
+  alt: z.string(),
+  label: z.string().optional(),
+  caption: z.string().optional(),
+  palette: z.array(SwatchSchema).optional(),
+});
+
+const ProcessRowSchema = z.object({
+  text: z.string(),
+  align: z.enum(["left", "right"]).optional(),
+  caption: z.string().optional(),
+  image: MoodBoardImageSchema,
+});
+
 const ProjectFrontmatterSchema = z.object({
   title: z.string(),
   slug: z.string(),
@@ -27,6 +42,8 @@ const ProjectFrontmatterSchema = z.object({
   tags: z.array(z.string()).default([]),
   featured: z.boolean().default(false),
   excerpt: z.string().optional(),
+  moodBoard: z.array(MoodBoardImageSchema).default([]),
+  processRows: z.array(ProcessRowSchema).default([]),
 });
 
 const BlogFrontmatterSchema = z.object({

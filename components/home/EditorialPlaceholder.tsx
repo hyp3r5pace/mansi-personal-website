@@ -1,5 +1,5 @@
 import { cn } from "@/lib/cn";
-import type { Swatch } from "./SwatchRow";
+import type { Swatch } from "@/components/content/SwatchRow";
 
 type EditorialPlaceholderProps = {
   title: string;

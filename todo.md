@@ -113,37 +113,53 @@ Legend:
 ## Phase 3 — Projects
 
 ### 3.1 Index page
-- [ ] Filter chips: category (Couture / RTW / Textile / Collaboration) + year
-- [ ] Client-side filter state (URL-synced via `searchParams`)
-- [ ] Masonry grid
-- [ ] Hover: fabric-swatch peel-back reveal to secondary image
-- [ ] Loading skeleton: animated dashed border
+- [x] Filter chips: category + year (`FilterChips` client component)
+- [x] URL-synced filter state via `useSearchParams` + `router.replace`
+- [x] Page kept static — `ProjectsBrowser` filters client-side off URL
+- [x] Masonry grid (CSS columns, 1/2/3 cols by breakpoint), aspect ratios rotate
+- [x] Empty-filter "nothing here" state
+- [x] `SkeletonTile` (dashed border + sweep) for future Suspense fallbacks
+- [ ] Hover: fabric-swatch peel-back reveal to secondary image _(deferred: needs real secondary photos)_
 
 ### 3.2 Case study template (`[slug]/page.tsx`)
-- [ ] Cover: full-bleed hero + serif title overlay
-- [ ] Meta strip: year, role, materials, collaborators
-- [ ] Concept: paragraph + mood board grid (4–6 images)
-- [ ] Process: alternating text/image rows
-- [ ] Final pieces: large editorial images
-- [ ] Palette: named swatch row
-- [ ] Next-project card with scribbled arrow
+- [x] `CaseStudyCover`: full-bleed editorial cover + serif title overlay + jali bleed
+- [x] `MetaStrip`: year, role, materials, collaborators
+- [x] Concept body via MDX
+- [x] Mood board section (frontmatter-driven `moodBoard` array)
+- [x] Process: alternating text/image rows (frontmatter-driven `processRows`)
+- [x] `PaletteSection`: named swatch row
+- [x] `NextProject` card with scribble arrow
+- [x] `not-found.tsx`
+- [x] `generateStaticParams` + `generateMetadata`
 
-### 3.3 MDX components
-- [ ] `SwatchRow` — accepts array of `{hex, name}`
-- [ ] `MaterialList`
-- [ ] `MoodBoard`
-- [ ] `ProcessRow` — text + image side-by-side, alternating
-- [ ] `PullQuote`
+### 3.3 Content components
+- [x] `PullQuote` (MDX-embeddable, prose-only attrs)
+- [x] `MaterialList` (page-level, fed by frontmatter)
+- [x] `MoodBoard` (page-level, handles missing src via `EditorialPlaceholder`)
+- [x] `ProcessRow` (page-level, alternating)
+- [x] `SwatchRow` (page-level)
+- [x] `MdxRenderer`: element overrides + PullQuote only
 
 ### 3.4 Real content
-- [ ] Author 2–3 real case studies with her
-- [ ] Pressure-test the template against real photos (not lorem)
-- [ ] Reshoot or pull any weak images
+- [ ] Author 2–3 real case studies with her _(blocked: needs her input + photos)_
+- [ ] Pressure-test against real photos _(blocked)_
+- [ ] Reshoot or pull weak images _(blocked)_
 
 ### 3.5 SEO
-- [ ] `generateStaticParams` for all slugs
-- [ ] Per-project OG image via `@vercel/og`
-- [ ] Structured data: `CreativeWork`
+- [x] `generateStaticParams` for all slugs
+- [ ] Per-project OG image via `@vercel/og` _(deferred to Phase 7)_
+- [ ] Structured data: `CreativeWork` _(deferred to Phase 7)_
+
+### 3.6 Notes / Workarounds
+- `next-mdx-remote@6` + Next 16 + Turbopack: complex JSX expression props
+  in MDX bodies (arrays of objects, etc.) evaluate to undefined inside the
+  RSC payload, crashing components at `.map`. Reproduced even with
+  `<SwatchRow swatches={"x"} />`. Workaround: MDX scope restricted to
+  prose + `PullQuote` (string + children only). Structured blocks
+  (mood board, process rows, materials, palette) live in frontmatter
+  and render at page level — this is also a cleaner authoring model.
+- Filter UX uses client-side filtering off URL params so `/projects`
+  stays statically prerendered.
 
 ---
 

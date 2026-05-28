@@ -1,23 +1,32 @@
 import type { Metadata } from "next";
-import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
+import { Suspense } from "react";
+import { getAllProjects } from "@/lib/mdx";
+import { ProjectsBrowser } from "@/components/projects/ProjectsBrowser";
 
-export const metadata: Metadata = { title: "Projects" };
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Selected projects, capsules, and textile collaborations.",
+};
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getAllProjects();
+
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-20 sm:px-10">
-      <p className="font-accent text-rose-madder text-2xl">the work</p>
-      <h1 className="font-display text-ink-indigo mt-2 text-5xl tracking-tight italic sm:text-6xl">
-        Projects
-      </h1>
-      <p className="text-char-ink/70 mt-6 max-w-xl">
-        Index of finished pieces, capsules, and collaborations. Filters by
-        category and year. <em>Coming in Phase 3.</em>
-      </p>
-      <p className="text-char-ink/50 mt-12 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest">
-        <ScribbleArrow className="h-3 w-10" />
-        next phase
-      </p>
+    <main className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 sm:py-24">
+      <header className="mb-14">
+        <p className="font-accent text-rose-madder text-2xl">the work</p>
+        <h1 className="font-display text-ink-indigo mt-2 text-5xl tracking-tight italic sm:text-6xl">
+          Projects
+        </h1>
+        <p className="text-char-ink/70 mt-6 max-w-xl text-lg">
+          Selected projects, capsules, and textile collaborations. Filter by
+          category or year.
+        </p>
+      </header>
+
+      <Suspense fallback={null}>
+        <ProjectsBrowser projects={projects} />
+      </Suspense>
     </main>
   );
 }

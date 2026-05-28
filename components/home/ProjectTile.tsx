@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { EditorialPlaceholder } from "./EditorialPlaceholder";
-import { SwatchRow } from "./SwatchRow";
+import { SwatchRow } from "@/components/content/SwatchRow";
 import type { Project } from "@/lib/mdx";
 
 type ProjectTileProps = {
