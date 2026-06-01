@@ -160,7 +160,7 @@ export function ContactForm() {
           onSuccess={setToken}
           onExpire={() => setToken(null)}
           onError={() => setToken(null)}
-          options={{ theme: "light" }}
+          options={{ theme: "light", appearance: "interaction-only" }}
         />
       ) : null}
 
