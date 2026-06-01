@@ -27,6 +27,31 @@ const ProcessRowSchema = z.object({
   image: MoodBoardImageSchema,
 });
 
+/**
+ * A real photograph in a project's lookbook gallery. `width`/`height` are the
+ * intrinsic pixel dimensions — used both by next/image and by the gallery's
+ * auto-rhythm to decide full-bleed vs contained vs paired. `layout` overrides
+ * that automatic choice when set.
+ */
+const LookbookItemSchema = z.object({
+  src: z.string(),
+  alt: z.string(),
+  width: z.number().int(),
+  height: z.number().int(),
+  caption: z.string().optional(),
+  layout: z.enum(["full", "contained", "pair"]).optional(),
+});
+
+export type LookbookItem = z.infer<typeof LookbookItemSchema>;
+
+const CoverImageSchema = z.object({
+  src: z.string(),
+  width: z.number().int(),
+  height: z.number().int(),
+  /** When true, render the image bare (no gradient/title band over it). */
+  bare: z.boolean().optional(),
+});
+
 const ProjectFrontmatterSchema = z.object({
   title: z.string(),
   slug: z.string(),
@@ -37,7 +62,11 @@ const ProjectFrontmatterSchema = z.object({
   materials: z.array(z.string()).default([]),
   collaborators: z.array(z.string()).default([]),
   cover: z.string(),
+  /** Optional real cover photo; falls back to the palette placeholder. */
+  coverImage: CoverImageSchema.optional(),
   gallery: z.array(z.string()).default([]),
+  /** Rich image-led gallery for photo-heavy projects (lookbooks). */
+  lookbook: z.array(LookbookItemSchema).default([]),
   palette: z.array(SwatchSchema).default([]),
   tags: z.array(z.string()).default([]),
   featured: z.boolean().default(false),

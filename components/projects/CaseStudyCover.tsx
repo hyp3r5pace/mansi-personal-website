@@ -1,22 +1,36 @@
+import Image from "next/image";
 import { JaliReveal } from "@/components/motion/JaliReveal";
 import { EditorialPlaceholder } from "@/components/home/EditorialPlaceholder";
 import type { Project } from "@/lib/mdx";
 
 /**
- * Full-bleed cover for a case study. Editorial placeholder fills the
- * width; serif title sits in a band along the bottom, jali bleeds in
- * from the right to add texture without crowding the title.
+ * Full-bleed cover for a case study. Uses the project's real cover photo
+ * when one is provided, otherwise an editorial palette placeholder. A serif
+ * title sits in a band along the bottom; jali bleeds in from the right to
+ * add texture without crowding the title.
  */
 export function CaseStudyCover({ project }: { project: Project }) {
   return (
     <section className="relative">
       <div className="ring-char-ink/10 relative aspect-[16/9] w-full overflow-hidden ring-1 sm:aspect-[21/9]">
-        <EditorialPlaceholder
-          title=""
-          palette={project.palette}
-          ratio="landscape"
-          className="ring-0"
-        />
+        {project.coverImage ? (
+          <Image
+            src={project.coverImage.src}
+            alt={project.title}
+            fill
+            sizes="100vw"
+            quality={90}
+            priority
+            className="object-cover"
+          />
+        ) : (
+          <EditorialPlaceholder
+            title=""
+            palette={project.palette}
+            ratio="landscape"
+            className="ring-0"
+          />
+        )}
         <JaliReveal
           className="inset-y-0 right-0 w-1/3"
           tintClassName="text-paper"

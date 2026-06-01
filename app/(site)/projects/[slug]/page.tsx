@@ -7,6 +7,7 @@ import { MetaStrip } from "@/components/projects/MetaStrip";
 import { PaletteSection } from "@/components/projects/PaletteSection";
 import { NextProject } from "@/components/projects/NextProject";
 import { MdxRenderer } from "@/components/content/MdxRenderer";
+import { ProjectGallery } from "@/components/projects/ProjectGallery";
 import { MoodBoard } from "@/components/content/MoodBoard";
 import { ProcessRow } from "@/components/content/ProcessRow";
 import { MaterialList } from "@/components/content/MaterialList";
@@ -84,6 +85,12 @@ export default async function CaseStudyPage({
       <article className="mx-auto w-full max-w-3xl px-6 py-16 sm:px-10 sm:py-24">
         <MdxRenderer source={project.body} />
       </article>
+
+      {project.lookbook.length > 0 ? (
+        <section className="pb-16 sm:pb-24">
+          <ProjectGallery images={project.lookbook} />
+        </section>
+      ) : null}
 
       {project.moodBoard.length > 0 ? (
         <section className="mx-auto w-full max-w-6xl px-6 sm:px-10">

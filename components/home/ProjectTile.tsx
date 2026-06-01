@@ -1,8 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { EditorialPlaceholder } from "./EditorialPlaceholder";
 import { SwatchRow } from "@/components/content/SwatchRow";
 import type { Project } from "@/lib/mdx";
+
+const TILE_RATIO = { portrait: "aspect-[3/4]", landscape: "aspect-[4/3]" } as const;
 
 type ProjectTileProps = {
   project: Project;
@@ -25,14 +28,31 @@ export function ProjectTile({ project, variant = "small", className }: ProjectTi
         className,
       )}
     >
-      <EditorialPlaceholder
-        title={project.title}
-        palette={project.palette}
-        category={project.category}
-        year={project.year}
-        ratio={isLarge ? "portrait" : "landscape"}
-        className="ring-char-ink/15 group-hover:ring-marigold-deep transition-[box-shadow,_ring] duration-500 group-hover:ring-2"
-      />
+      {project.coverImage ? (
+        <div
+          className={cn(
+            "ring-char-ink/15 group-hover:ring-marigold-deep relative w-full overflow-hidden rounded-sm ring-1 transition-[box-shadow,_ring] duration-500 group-hover:ring-2",
+            isLarge ? TILE_RATIO.portrait : TILE_RATIO.landscape,
+          )}
+        >
+          <Image
+            src={project.coverImage.src}
+            alt={project.title}
+            fill
+            sizes={isLarge ? "(min-width: 1024px) 55vw, 100vw" : "(min-width: 1024px) 45vw, 100vw"}
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+        </div>
+      ) : (
+        <EditorialPlaceholder
+          title={project.title}
+          palette={project.palette}
+          category={project.category}
+          year={project.year}
+          ratio={isLarge ? "portrait" : "landscape"}
+          className="ring-char-ink/15 group-hover:ring-marigold-deep transition-[box-shadow,_ring] duration-500 group-hover:ring-2"
+        />
+      )}
 
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
