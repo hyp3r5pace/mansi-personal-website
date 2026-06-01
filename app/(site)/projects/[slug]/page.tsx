@@ -64,7 +64,7 @@ export default async function CaseStudyPage({
     name: project.title,
     headline: project.title,
     description: project.excerpt,
-    creator: { "@type": "Person", name: "Bubu" },
+    creator: { "@type": "Person", name: SITE.author },
     dateCreated: project.date.toISOString(),
     keywords: project.tags.join(", "),
     inLanguage: "en",

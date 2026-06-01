@@ -3,6 +3,7 @@ import { HeroBorder } from "./HeroBorder";
 import { EditorialPlaceholder } from "./EditorialPlaceholder";
 import { JaliReveal } from "@/components/motion/JaliReveal";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
+import { SITE, COPY } from "@/lib/site";
 
 export function Hero() {
   return (
@@ -17,13 +18,14 @@ export function Hero() {
 
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 px-6 py-20 sm:px-10 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-32">
         <div className="relative">
-          <p className="font-accent text-rose-madder text-2xl">jaipur · delhi</p>
+          <p className="font-accent text-rose-madder text-2xl">
+            {SITE.location.eyebrow}
+          </p>
           <h1 className="font-display text-ink-indigo mt-3 text-6xl leading-[0.95] tracking-tight italic sm:text-7xl lg:text-8xl">
-            Bubu.
+            {SITE.wordmark}
           </h1>
           <p className="text-char-ink/80 mt-8 max-w-md text-lg sm:text-xl">
-            Textile-led fashion designer. A practice rooted in block print,
-            kantha, and the slow weight of considered cloth.
+            {SITE.tagline}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -31,14 +33,14 @@ export function Hero() {
               href="/projects"
               className="bg-marigold text-ink-indigo hover:bg-marigold-deep group inline-flex h-12 items-center gap-2 rounded-full px-6 font-medium transition-colors"
             >
-              See the work
+              {COPY.hero.ctaPrimary}
               <ScribbleArrow className="h-3 w-7 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/about"
               className="text-ink-indigo hover:text-marigold-deep inline-flex h-12 items-center font-medium transition-colors"
             >
-              About the maker
+              {COPY.hero.ctaSecondary}
             </Link>
           </div>
         </div>
@@ -47,7 +49,7 @@ export function Hero() {
           <div className="text-ink-indigo relative p-6 sm:p-7">
             <HeroBorder />
             <EditorialPlaceholder
-              title="A hand on the cloth."
+              title={COPY.hero.imageTitle}
               category="Studio"
               year={2026}
               palette={[
@@ -60,7 +62,7 @@ export function Hero() {
             />
           </div>
           <p className="font-accent text-rose-madder mt-3 text-xl">
-            studio · march
+            {COPY.hero.caption}
           </p>
         </div>
       </div>

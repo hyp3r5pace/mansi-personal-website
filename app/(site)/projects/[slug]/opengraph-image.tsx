@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getAllProjects, getProjectBySlug } from "@/lib/mdx";
+import { SITE, SITE_DOMAIN } from "@/lib/site";
 
 export const alt = "Project case study";
 export const size = { width: 1200, height: 630 };
@@ -41,7 +42,7 @@ export default async function ProjectOgImage({
           <div style={{ fontSize: 24, letterSpacing: 2, color: "#C97A1A", textTransform: "uppercase" }}>
             {`${category} · ${year}`}
           </div>
-          <div style={{ fontSize: 22, color: "#1F2A56", fontStyle: "italic" }}>Bubu — Studio</div>
+          <div style={{ fontSize: 22, color: "#1F2A56", fontStyle: "italic" }}>{SITE.name}</div>
         </div>
 
         <div
@@ -73,7 +74,7 @@ export default async function ProjectOgImage({
                 ))
               : null}
           </div>
-          <div style={{ fontSize: 22, opacity: 0.75 }}>bubu.studio/projects</div>
+          <div style={{ fontSize: 22, opacity: 0.75 }}>{`${SITE_DOMAIN}/projects`}</div>
         </div>
       </div>
     ),

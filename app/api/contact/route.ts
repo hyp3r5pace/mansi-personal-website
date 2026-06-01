@@ -3,12 +3,13 @@ import { Resend } from "resend";
 import { ContactSchema } from "@/lib/contact-schema";
 import { rateLimit } from "@/lib/rate-limit";
 import { verifyTurnstile } from "@/lib/turnstile";
+import { SITE } from "@/lib/site";
 
 export const runtime = "nodejs";
 
-const TO_ADDRESS = process.env.CONTACT_TO_EMAIL ?? "hello@example.com";
+const TO_ADDRESS = process.env.CONTACT_TO_EMAIL ?? SITE.email;
 const FROM_ADDRESS =
-  process.env.CONTACT_FROM_EMAIL ?? "Bubu Studio <onboarding@resend.dev>";
+  process.env.CONTACT_FROM_EMAIL ?? `${SITE.shortName} Studio <onboarding@resend.dev>`;
 
 function getClientIp(req: Request): string {
   const fwd = req.headers.get("x-forwarded-for");

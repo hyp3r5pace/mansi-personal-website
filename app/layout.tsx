@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { SITE } from "@/lib/site";
+import { SITE, TITLE_DEFAULT, TITLE_TEMPLATE } from "@/lib/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -26,29 +26,18 @@ const caveat = Caveat({
   preload: false,
 });
 
-const TITLE_DEFAULT = "Bubu — Fashion Designer";
-const DESCRIPTION =
-  "Textile-led fashion designer working between Bengaluru, Bagru, and Sanganer. Block print, kantha, natural dye, and considered everyday wear.";
+const DESCRIPTION = SITE.seoDescription;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: TITLE_DEFAULT,
-    template: "%s · Bubu",
+    template: TITLE_TEMPLATE,
   },
   description: DESCRIPTION,
   applicationName: SITE.name,
   authors: [{ name: SITE.author }],
-  keywords: [
-    "fashion designer",
-    "natural dye",
-    "block print",
-    "kantha",
-    "Indian craft",
-    "textile",
-    "Bengaluru",
-    "Jaipur",
-  ],
+  keywords: [...SITE.keywords],
   openGraph: {
     type: "website",
     siteName: SITE.name,
@@ -78,15 +67,11 @@ export const metadata: Metadata = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Bubu",
+  name: SITE.author,
   url: SITE.url,
-  jobTitle: "Fashion Designer",
+  jobTitle: SITE.role,
   description: DESCRIPTION,
-  sameAs: [
-    "https://instagram.com/",
-    "https://behance.net/",
-    "https://linkedin.com/",
-  ],
+  sameAs: SITE.socials.map((s) => s.href),
 };
 
 export default function RootLayout({

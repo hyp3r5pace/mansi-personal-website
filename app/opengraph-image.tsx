@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { SITE, SITE_DOMAIN, TITLE_DEFAULT } from "@/lib/site";
 
-export const alt = "Bubu — fashion designer";
+export const alt = TITLE_DEFAULT;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -23,7 +24,7 @@ export default async function OpengraphImage() {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
           <div style={{ fontSize: 28, letterSpacing: 2, color: "#C97A1A", textTransform: "uppercase" }}>
-            Studio · Bubu
+            {`Studio · ${SITE.shortName}`}
           </div>
           <div style={{ display: "flex", gap: 16 }}>
             {[0, 1, 2, 3, 4].map((i) => (
@@ -51,10 +52,10 @@ export default async function OpengraphImage() {
               maxWidth: 920,
             }}
           >
-            Textile-led fashion, made slowly.
+            {SITE.ogHeadline}
           </div>
           <div style={{ fontSize: 32, color: "#2A2620", opacity: 0.8, maxWidth: 920 }}>
-            Block print, kantha, natural dye. Bengaluru · Jaipur.
+            {SITE.ogSubhead}
           </div>
         </div>
 
@@ -70,9 +71,9 @@ export default async function OpengraphImage() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ width: 40, height: 2, background: "#E8A33D" }} />
-            bubu.studio
+            {SITE_DOMAIN}
           </div>
-          <div style={{ fontStyle: "italic" }}>Drawn, dyed, and stitched in India.</div>
+          <div style={{ fontStyle: "italic" }}>{SITE.copyrightLine}</div>
         </div>
       </div>
     ),

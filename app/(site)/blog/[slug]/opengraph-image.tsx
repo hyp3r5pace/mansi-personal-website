@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { SITE_DOMAIN } from "@/lib/site";
 
 export const alt = "Journal entry";
 export const size = { width: 1200, height: 630 };
@@ -87,7 +88,7 @@ export default async function BlogOgImage({
             ))}
           </div>
           <div style={{ fontSize: 22, color: "#C97A1A", fontStyle: "italic" }}>
-            bubu.studio/blog
+            {`${SITE_DOMAIN}/blog`}
           </div>
         </div>
       </div>

@@ -20,6 +20,70 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Configuration
+
+All user-facing text and identity live in **`lib/site.ts`** — edit there to
+rebrand or retune the site without touching components.
+
+### `SITE` — identity, brand, and contact
+
+| Field | Purpose |
+|-------|---------|
+| `url` | Canonical site URL. Override per-env with `NEXT_PUBLIC_SITE_URL`. |
+| `name` | Studio name for metadata, manifest, and feed titles (e.g. "Mansi — Studio"). |
+| `shortName` | Compact brand name (manifest `short_name`, OG footer). |
+| `wordmark` | Brand text in the nav + hero. |
+| `author` | Person name for authorship / structured data. |
+| `role` | Professional role; pairs with the name in page titles. |
+| `description` | One-line description for meta + RSS. |
+| `seoDescription` | Longer description for SEO meta + Person JSON-LD. |
+| `keywords` | Meta keywords array. |
+| `tagline` | Hero blurb under the wordmark. |
+| `copyrightLine` | Footer copyright suffix (year is prepended). |
+| `ogHeadline` / `ogSubhead` | Text on the home Open Graph image. |
+| `location.eyebrow` | Short label shown as the hero eyebrow. |
+| `location.line` | Full location sentence on the contact page. |
+| `email` | Primary contact address (footer, contact page, mail fallback). |
+| `socials[]` | External profiles: `{ label, handle, href }`. |
+| `whatsappGreeting` | Message pre-filled into the WhatsApp chat link. |
+
+Derived exports: `SITE_DOMAIN` (URL without protocol), `TITLE_DEFAULT`
+(`"<author> — <role>"`), `TITLE_TEMPLATE` (`"%s · <shortName>"`).
+
+### `COPY` — page and section copy
+
+Grouped by where it appears. `eyebrow` = the small script label above a
+heading; `intro` = the lede paragraph; `link` = a "view all" link label.
+
+| Group | Keys |
+|-------|------|
+| `hero` | `ctaPrimary`, `ctaSecondary`, `caption`, `imageTitle` |
+| `featured` | `eyebrow`, `heading`, `link` |
+| `aboutTeaser` | `eyebrow`, `heading`, `body`, `link`, `imageTitle` |
+| `journalTeaser` | `eyebrow`, `heading`, `link` |
+| `footer` | `eyebrow` |
+| `projectsPage` | `eyebrow`, `heading`, `intro` |
+| `blogPage` | `eyebrow`, `heading`, `intro` |
+| `contactPage` | `eyebrow`, `heading`, `intro`, `directHeading` |
+
+### Environment variables
+
+Copy `.env.example` to `.env.local` and fill in:
+
+| Variable | Required | Notes |
+|----------|----------|-------|
+| `NEXT_PUBLIC_SITE_URL` | optional | Production URL; defaults to `https://mansi.studio`. |
+| `RESEND_API_KEY` | contact form | Resend key; without it the form returns 503. |
+| `CONTACT_TO_EMAIL` | optional | Inbox for form mail; defaults to `SITE.email`. |
+| `CONTACT_FROM_EMAIL` | optional | Verified sender; defaults to a Resend test sender. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | contact form | Cloudflare Turnstile public key. |
+| `TURNSTILE_SECRET_KEY` | contact form | Turnstile secret (server-side verify). |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | optional | E.164 digits, no `+`. Empty hides the WhatsApp button. |
+
+> Page `<title>` and per-route meta `description` still live in each page's
+> `metadata` export (`app/.../page.tsx`); everything else routes through
+> `lib/site.ts`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

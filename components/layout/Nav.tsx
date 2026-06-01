@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { SITE } from "@/lib/site";
 import { JaliReveal } from "@/components/motion/JaliReveal";
 
 const NAV_LINKS = [
@@ -56,7 +57,7 @@ export function Nav() {
               href="/"
               className="font-display text-ink-indigo text-2xl tracking-tight italic"
             >
-              Bubu.
+              {SITE.wordmark}
             </Link>
 
             <ul className="hidden items-center gap-8 md:flex">
@@ -127,7 +128,7 @@ export function Nav() {
                 onClick={() => setOpen(false)}
                 className="font-display text-ink-indigo text-2xl tracking-tight italic"
               >
-                Bubu.
+                {SITE.wordmark}
               </Link>
               <button
                 type="button"

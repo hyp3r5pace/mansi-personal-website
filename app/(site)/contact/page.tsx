@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { WhatsAppButton } from "@/components/contact/WhatsAppButton";
+import { SITE, COPY } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -8,24 +9,26 @@ export const metadata: Metadata = {
 };
 
 const SOCIALS = [
-  { label: "Email", value: "hello@example.com", href: "mailto:hello@example.com" },
-  { label: "Instagram", value: "@bubu.studio", href: "https://instagram.com/" },
-  { label: "Behance", value: "bubu", href: "https://behance.net/" },
-  { label: "LinkedIn", value: "bubu", href: "https://linkedin.com/" },
-] as const;
+  { label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
+  ...SITE.socials.map((s) => ({
+    label: s.label,
+    value: s.handle,
+    href: s.href,
+  })),
+];
 
 export default function ContactPage() {
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 sm:py-24">
       <header className="mb-12">
-        <p className="font-accent text-rose-madder text-2xl">say hello</p>
+        <p className="font-accent text-rose-madder text-2xl">
+          {COPY.contactPage.eyebrow}
+        </p>
         <h1 className="font-display text-ink-indigo mt-2 text-5xl tracking-tight italic sm:text-6xl">
-          Send a note
+          {COPY.contactPage.heading}
         </h1>
         <p className="text-char-ink/75 mt-6 max-w-xl text-lg">
-          Best way to reach me is email. Commissions, collaborations, press, or
-          a studio visit — write a few lines and I&rsquo;ll reply within a
-          week.
+          {COPY.contactPage.intro}
         </p>
       </header>
 
@@ -36,7 +39,7 @@ export default function ContactPage() {
           <WhatsAppButton />
 
           <h2 className="font-display text-ink-indigo mt-10 text-2xl tracking-tight italic">
-            Direct
+            {COPY.contactPage.directHeading}
           </h2>
           <ul className="divide-char-ink/15 mt-4 divide-y divide-dashed">
             {SOCIALS.map((s) => (
@@ -59,7 +62,7 @@ export default function ContactPage() {
           </ul>
 
           <p className="text-char-ink/55 mt-8 font-mono text-[10px] uppercase tracking-widest">
-            Based in Bengaluru — open to travel.
+            {SITE.location.line}
           </p>
         </aside>
       </div>

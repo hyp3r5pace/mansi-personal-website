@@ -66,7 +66,7 @@ export default async function BlogPostPage({
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    author: { "@type": "Person", name: "Bubu" },
+    author: { "@type": "Person", name: SITE.author },
     datePublished: post.date.toISOString(),
     keywords: post.tags.join(", "),
     inLanguage: "en",

@@ -3,6 +3,7 @@ import { getFeaturedProjects } from "@/lib/mdx";
 import { ProjectTile } from "./ProjectTile";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 import { StitchHeading } from "@/components/quirk/StitchHeading";
+import { COPY } from "@/lib/site";
 
 /**
  * Asymmetric featured projects grid:
@@ -22,14 +23,16 @@ export async function FeaturedProjects() {
     <section className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 sm:py-28">
       <header className="mb-12 flex items-end justify-between gap-6">
         <div>
-          <p className="font-accent text-rose-madder text-2xl">selected work</p>
-          <StitchHeading className="mt-2">Recent projects</StitchHeading>
+          <p className="font-accent text-rose-madder text-2xl">
+            {COPY.featured.eyebrow}
+          </p>
+          <StitchHeading className="mt-2">{COPY.featured.heading}</StitchHeading>
         </div>
         <Link
           href="/projects"
           className="text-ink-indigo hover:text-marigold-deep group hidden items-center gap-2 text-sm font-medium transition-colors sm:inline-flex"
         >
-          All projects
+          {COPY.featured.link}
           <ScribbleArrow className="h-3 w-8 transition-transform group-hover:translate-x-1" />
         </Link>
       </header>
@@ -57,7 +60,7 @@ export async function FeaturedProjects() {
         href="/projects"
         className="text-ink-indigo hover:text-marigold-deep group mt-10 inline-flex items-center gap-2 text-sm font-medium transition-colors sm:hidden"
       >
-        All projects
+        {COPY.featured.link}
         <ScribbleArrow className="h-3 w-8" />
       </Link>
     </section>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
+import { COPY } from "@/lib/site";
 
 export async function JournalTeaser() {
   const posts = (await getAllPosts()).slice(0, 3);
@@ -10,16 +11,18 @@ export async function JournalTeaser() {
     <section className="mx-auto w-full max-w-6xl px-6 py-24 sm:px-10">
       <header className="mb-12 flex items-end justify-between gap-6">
         <div>
-          <p className="font-accent text-rose-madder text-2xl">studio notebook</p>
+          <p className="font-accent text-rose-madder text-2xl">
+            {COPY.journalTeaser.eyebrow}
+          </p>
           <h2 className="font-display text-ink-indigo mt-2 text-4xl tracking-tight italic sm:text-5xl">
-            From the journal
+            {COPY.journalTeaser.heading}
           </h2>
         </div>
         <Link
           href="/blog"
           className="text-ink-indigo hover:text-marigold-deep group hidden items-center gap-2 text-sm font-medium transition-colors sm:inline-flex"
         >
-          All posts
+          {COPY.journalTeaser.link}
           <ScribbleArrow className="h-3 w-8 transition-transform group-hover:translate-x-1" />
         </Link>
       </header>
