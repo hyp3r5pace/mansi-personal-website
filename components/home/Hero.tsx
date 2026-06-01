@@ -21,7 +21,7 @@ export function Hero() {
           <p className="font-accent text-rose-madder text-2xl">
             {SITE.location.eyebrow}
           </p>
-          <h1 className="font-display text-ink-indigo mt-3 text-6xl leading-[0.95] tracking-tight italic sm:text-7xl lg:text-8xl">
+          <h1 className="font-accent text-ink-indigo mt-2 text-7xl font-semibold leading-[0.9] sm:text-8xl lg:text-9xl">
             {SITE.wordmark}
           </h1>
           <p className="text-char-ink/80 mt-8 max-w-md text-lg sm:text-xl">

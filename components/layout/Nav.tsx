@@ -55,7 +55,7 @@ export function Nav() {
           >
             <Link
               href="/"
-              className="font-display text-ink-indigo text-2xl tracking-tight italic"
+              className="font-accent text-ink-indigo text-3xl font-semibold leading-none"
             >
               {SITE.wordmark}
             </Link>
@@ -126,7 +126,7 @@ export function Nav() {
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className="font-display text-ink-indigo text-2xl tracking-tight italic"
+                className="font-accent text-ink-indigo text-3xl font-semibold leading-none"
               >
                 {SITE.wordmark}
               </Link>
