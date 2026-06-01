@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { JournalTeaser } from "@/components/home/JournalTeaser";
-import { ContactStrip } from "@/components/home/ContactStrip";
 import { Reveal } from "@/components/motion/Reveal";
 
 export default function Home() {
@@ -17,9 +16,6 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <JournalTeaser />
-      </Reveal>
-      <Reveal offset={8}>
-        <ContactStrip />
       </Reveal>
     </main>
   );

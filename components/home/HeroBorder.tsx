@@ -5,20 +5,24 @@ import { cn } from "@/lib/cn";
 
 type HeroBorderProps = {
   className?: string;
-  color?: string;
 };
 
 /**
- * Decorative block-print-style frame for the hero image. Renders a
- * double-line rectangle with diamond corner motifs and small dots
- * along the long edges. Strokes draw themselves in on mount.
+ * Hand-stitched kantha frame for the hero portrait — two offset running-
+ * stitch outlines in rose-madder with marigold corner knots, echoing the
+ * KanthaPortrait treatment on the About page so the pages rhyme.
  *
- * The SVG scales to fill the parent — wrap a positioned container
- * around the image and drop this in.
+ * On mount the stitches march into place (animated strokeDashoffset, NOT
+ * pathLength — pathLength also drives strokeDasharray and would clobber the
+ * stitch pattern) and the knots pop in afterwards.
+ *
+ * Fills its positioned parent — wrap a padded container around the image
+ * and drop this in as the first child. preserveAspectRatio="none" stretches
+ * the stitches to the frame; the ~3% non-uniform scale reads as hand-made.
  */
-export function HeroBorder({ className, color = "currentColor" }: HeroBorderProps) {
+export function HeroBorder({ className }: HeroBorderProps) {
   const reduced = useReducedMotion();
-  const baseTransition = reduced
+  const stitch = reduced
     ? { duration: 0 }
     : { duration: 1.4, ease: [0.22, 1, 0.36, 1] as const };
 
@@ -27,89 +31,59 @@ export function HeroBorder({ className, color = "currentColor" }: HeroBorderProp
       aria-hidden="true"
       viewBox="0 0 300 400"
       preserveAspectRatio="none"
-      className={cn("absolute inset-0 h-full w-full overflow-visible", className)}
-      stroke={color}
+      className={cn(
+        "text-rose-madder absolute inset-0 h-full w-full overflow-visible",
+        className,
+      )}
       fill="none"
+      stroke="currentColor"
       strokeLinecap="round"
-      strokeLinejoin="round"
     >
-      {/* Outer thin frame */}
+      {/* Outer running stitch */}
       <motion.rect
-        x="2"
-        y="2"
-        width="296"
-        height="396"
-        strokeWidth="1.25"
-        initial={reduced ? false : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={baseTransition}
-        vectorEffect="non-scaling-stroke"
+        x="4"
+        y="4"
+        width="292"
+        height="392"
+        rx="3"
+        strokeWidth="2"
+        strokeDasharray="9 6"
+        initial={reduced ? false : { strokeDashoffset: 60, opacity: 0 }}
+        animate={{ strokeDashoffset: 0, opacity: 1 }}
+        transition={stitch}
       />
-      {/* Inner frame, drawn after */}
+      {/* Inner finer stitch, offset inward and running the other way */}
       <motion.rect
-        x="10"
-        y="10"
-        width="280"
-        height="380"
-        strokeWidth="0.75"
-        initial={reduced ? false : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ ...baseTransition, delay: reduced ? 0 : 0.25 }}
-        vectorEffect="non-scaling-stroke"
+        x="9"
+        y="9"
+        width="282"
+        height="382"
+        rx="2.4"
+        strokeWidth="1"
+        strokeDasharray="3 5"
+        initial={reduced ? false : { strokeDashoffset: -40, opacity: 0 }}
+        animate={{ strokeDashoffset: 0, opacity: 0.55 }}
+        transition={{ ...stitch, delay: reduced ? 0 : 0.15 }}
       />
 
-      {/* Corner diamonds (block-print mukut motif) */}
-      {[
-        { x: 6, y: 6 },
-        { x: 294, y: 6 },
-        { x: 6, y: 394 },
-        { x: 294, y: 394 },
-      ].map((c, i) => (
-        <motion.path
-          key={`${c.x}-${c.y}`}
-          d={`M ${c.x} ${c.y - 5} L ${c.x + 5} ${c.y} L ${c.x} ${c.y + 5} L ${c.x - 5} ${c.y} Z`}
-          strokeWidth="1"
-          initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ ...baseTransition, delay: reduced ? 0 : 0.7 + i * 0.05 }}
-          vectorEffect="non-scaling-stroke"
-        />
-      ))}
-
-      {/* Small dot row along the top edge */}
-      {Array.from({ length: 11 }).map((_, i) => {
-        const cx = 30 + i * 24;
-        return (
+      {/* Marigold corner knots — pop in once the stitches settle */}
+      <g className="text-marigold-deep" stroke="none" fill="currentColor">
+        {[
+          { cx: 4, cy: 4 },
+          { cx: 296, cy: 4 },
+          { cx: 4, cy: 396 },
+          { cx: 296, cy: 396 },
+        ].map((k, i) => (
           <motion.circle
-            key={`top-${i}`}
-            cx={cx}
-            cy={20}
-            r={1.2}
-            fill={color}
-            stroke="none"
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 1 + i * 0.03 }}
+            key={`${k.cx}-${k.cy}`}
+            cx={k.cx}
+            cy={k.cy}
+            initial={reduced ? false : { r: 0, opacity: 0 }}
+            animate={{ r: 3.5, opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.9 + i * 0.08 }}
           />
-        );
-      })}
-      {/* Mirror at bottom */}
-      {Array.from({ length: 11 }).map((_, i) => {
-        const cx = 30 + i * 24;
-        return (
-          <motion.circle
-            key={`bot-${i}`}
-            cx={cx}
-            cy={380}
-            r={1.2}
-            fill={color}
-            stroke="none"
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 1.05 + i * 0.03 }}
-          />
-        );
-      })}
+        ))}
+      </g>
     </svg>
   );
 }

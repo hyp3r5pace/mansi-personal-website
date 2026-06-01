@@ -81,6 +81,20 @@
     border: 1.5px dashed currentColor;
     border-radius: 2px;
   }
+
+  /* Editorial drop-cap. Targets the first paragraph in the wrapper. */
+  .drop-cap > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--color-rose-madder);
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.85;
+    padding-right: 0.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,15 +1,17 @@
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
-import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { Mascot } from "@/components/quirk/Mascot";
+import { CursorThread } from "@/components/quirk/CursorThread";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SmoothScrollProvider />
+      <CursorThread />
       <Nav />
       <PageTransition>{children}</PageTransition>
       <Footer />
+      <Mascot />
     </>
   );
 }

@@ -44,22 +44,20 @@ export function Hero() {
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="text-ink-indigo relative">
+          <div className="text-ink-indigo relative p-6 sm:p-7">
             <HeroBorder />
-            <div className="m-6 sm:m-7">
-              <EditorialPlaceholder
-                title="A hand on the cloth."
-                category="Studio"
-                year={2026}
-                palette={[
-                  { name: "indigo", hex: "#1F2A56" },
-                  { name: "madder", hex: "#B5495B" },
-                  { name: "marigold", hex: "#E8A33D" },
-                  { name: "paper", hex: "#F6EFE2" },
-                ]}
-                ratio="portrait"
-              />
-            </div>
+            <EditorialPlaceholder
+              title="A hand on the cloth."
+              category="Studio"
+              year={2026}
+              palette={[
+                { name: "indigo", hex: "#1F2A56" },
+                { name: "madder", hex: "#B5495B" },
+                { name: "marigold", hex: "#E8A33D" },
+                { name: "paper", hex: "#F6EFE2" },
+              ]}
+              ratio="portrait"
+            />
           </div>
           <p className="font-accent text-rose-madder mt-3 text-xl">
             studio · march

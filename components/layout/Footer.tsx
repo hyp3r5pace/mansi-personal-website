@@ -43,7 +43,15 @@ export function Footer() {
           <p className="opacity-70">
             © {new Date().getFullYear()} Bubu. Drawn, dyed, and stitched in India.
           </p>
-          <BackToTop />
+          <div className="flex items-center gap-6">
+            <a
+              href="/rss.xml"
+              className="opacity-70 hover:text-marigold hover:opacity-100 transition-colors"
+            >
+              RSS
+            </a>
+            <BackToTop />
+          </div>
         </div>
       </div>
     </footer>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getFeaturedProjects } from "@/lib/mdx";
 import { ProjectTile } from "./ProjectTile";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
+import { StitchHeading } from "@/components/quirk/StitchHeading";
 
 /**
  * Asymmetric featured projects grid:
@@ -22,9 +23,7 @@ export async function FeaturedProjects() {
       <header className="mb-12 flex items-end justify-between gap-6">
         <div>
           <p className="font-accent text-rose-madder text-2xl">selected work</p>
-          <h2 className="font-display text-ink-indigo mt-2 text-4xl tracking-tight italic sm:text-5xl">
-            Recent projects
-          </h2>
+          <StitchHeading className="mt-2">Recent projects</StitchHeading>
         </div>
         <Link
           href="/projects"
