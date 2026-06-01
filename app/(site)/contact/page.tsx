@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { WhatsAppButton } from "@/components/contact/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -32,7 +33,9 @@ export default function ContactPage() {
         <ContactForm />
 
         <aside className="sm:sticky sm:top-28 sm:self-start">
-          <h2 className="font-display text-ink-indigo text-2xl tracking-tight italic">
+          <WhatsAppButton />
+
+          <h2 className="font-display text-ink-indigo mt-10 text-2xl tracking-tight italic">
             Direct
           </h2>
           <ul className="divide-char-ink/15 mt-4 divide-y divide-dashed">
