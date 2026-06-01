@@ -6,46 +6,64 @@ import { cn } from "@/lib/cn";
 type FilterChipsProps = {
   categories: string[];
   years: number[];
+  tags: string[];
 };
 
+/** Parse a comma-separated multi-select param into a list of values. */
+function parseList(value: string | null): string[] {
+  return value ? value.split(",").filter(Boolean) : [];
+}
+
 /**
- * URL-synced filter chips for the projects index. Two groups:
- * category and year. Clicking an active chip clears the param.
- * Updates happen via router.replace so back/forward still works.
+ * URL-synced filter chips for the projects index. Three groups:
+ * category, year, and tag. Each group is multi-select — clicking a chip
+ * toggles its membership in a comma-separated param. Filtering is OR
+ * within a group, AND across groups. router.replace keeps back/forward.
  */
-export function FilterChips({ categories, years }: FilterChipsProps) {
+export function FilterChips({ categories, years, tags }: FilterChipsProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const activeCategory = params.get("category");
-  const activeYear = params.get("year");
+  const activeCategories = parseList(params.get("category"));
+  const activeYears = parseList(params.get("year"));
+  const activeTags = parseList(params.get("tag"));
 
-  function setParam(key: string, value: string | null) {
+  function toggleParam(key: string, value: string) {
     const next = new URLSearchParams(params.toString());
-    if (value === null || next.get(key) === value) {
-      next.delete(key);
-    } else {
-      next.set(key, value);
-    }
+    const current = parseList(next.get(key));
+    const idx = current.indexOf(value);
+    if (idx >= 0) current.splice(idx, 1);
+    else current.push(value);
+    if (current.length) next.set(key, current.join(","));
+    else next.delete(key);
     const qs = next.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  const hasFilter = !!activeCategory || !!activeYear;
+  const hasFilter =
+    activeCategories.length > 0 ||
+    activeYears.length > 0 ||
+    activeTags.length > 0;
 
   return (
     <div className="flex flex-col gap-4">
       <ChipGroup
         label="Category"
         items={categories}
-        active={activeCategory}
-        onToggle={(v) => setParam("category", v)}
+        active={activeCategories}
+        onToggle={(v) => toggleParam("category", v)}
       />
       <ChipGroup
         label="Year"
         items={years.map(String)}
-        active={activeYear}
-        onToggle={(v) => setParam("year", v)}
+        active={activeYears}
+        onToggle={(v) => toggleParam("year", v)}
+      />
+      <ChipGroup
+        label="Tag"
+        items={tags}
+        active={activeTags}
+        onToggle={(v) => toggleParam("tag", v)}
       />
       {hasFilter ? (
         <button
@@ -68,16 +86,17 @@ function ChipGroup({
 }: {
   label: string;
   items: string[];
-  active: string | null;
+  active: string[];
   onToggle: (v: string) => void;
 }) {
+  if (items.length === 0) return null;
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="text-char-ink/55 mr-1 font-mono text-[10px] uppercase tracking-widest">
         {label}
       </span>
       {items.map((item) => {
-        const isActive = active === item;
+        const isActive = active.includes(item);
         return (
           <button
             key={item}

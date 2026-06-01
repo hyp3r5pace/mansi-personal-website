@@ -7,23 +7,30 @@ type TagFilterProps = {
   tags: string[];
 };
 
+/** Parse a comma-separated multi-select param into a list of values. */
+function parseList(value: string | null): string[] {
+  return value ? value.split(",").filter(Boolean) : [];
+}
+
 /**
- * URL-synced tag chips for the journal index. Block-print style: dashed
- * stitch border, indigo fill on active. Clicking active chip clears it.
+ * URL-synced tag chips for the journal index. Multi-select: each click
+ * toggles a tag's membership in a comma-separated param (OR semantics).
+ * Block-print style: dashed stitch border, indigo fill on active.
  */
 export function TagFilter({ tags }: TagFilterProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const active = params.get("tag");
+  const active = parseList(params.get("tag"));
 
   function toggle(value: string) {
     const next = new URLSearchParams(params.toString());
-    if (next.get("tag") === value) {
-      next.delete("tag");
-    } else {
-      next.set("tag", value);
-    }
+    const current = parseList(next.get("tag"));
+    const idx = current.indexOf(value);
+    if (idx >= 0) current.splice(idx, 1);
+    else current.push(value);
+    if (current.length) next.set("tag", current.join(","));
+    else next.delete("tag");
     const qs = next.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
@@ -36,7 +43,7 @@ export function TagFilter({ tags }: TagFilterProps) {
         Tags
       </span>
       {tags.map((tag) => {
-        const isActive = active === tag;
+        const isActive = active.includes(tag);
         return (
           <button
             key={tag}
@@ -54,7 +61,7 @@ export function TagFilter({ tags }: TagFilterProps) {
           </button>
         );
       })}
-      {active ? (
+      {active.length > 0 ? (
         <button
           type="button"
           onClick={() => router.replace(pathname, { scroll: false })}

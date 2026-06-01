@@ -16,7 +16,7 @@ type JournalBrowserProps = {
  */
 export function JournalBrowser({ posts }: JournalBrowserProps) {
   const params = useSearchParams();
-  const tag = params.get("tag");
+  const tagParam = params.get("tag");
 
   const tags = useMemo(
     () => Array.from(new Set(posts.flatMap((p) => p.tags))).sort(),
@@ -24,9 +24,11 @@ export function JournalBrowser({ posts }: JournalBrowserProps) {
   );
 
   const filtered = useMemo(() => {
-    if (!tag) return posts;
-    return posts.filter((p) => p.tags.includes(tag));
-  }, [posts, tag]);
+    const selected = tagParam ? tagParam.split(",").filter(Boolean) : [];
+    if (!selected.length) return posts;
+    // AND within the tag group: show posts matching every selected tag.
+    return posts.filter((p) => selected.every((t) => p.tags.includes(t)));
+  }, [posts, tagParam]);
 
   return (
     <div className="space-y-10">
