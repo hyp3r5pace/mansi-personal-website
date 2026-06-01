@@ -60,7 +60,24 @@ export type ProjectFrontmatter = z.infer<typeof ProjectFrontmatterSchema>;
 export type BlogFrontmatter = z.infer<typeof BlogFrontmatterSchema>;
 
 export type Project = ProjectFrontmatter & { body: string };
-export type BlogPost = BlogFrontmatter & { body: string };
+export type BlogPost = BlogFrontmatter & { body: string; readingMinutes: number };
+
+/* ------------------------------ utils ------------------------------ */
+
+/**
+ * Word-count based reading time. Strips MDX/HTML-ish tokens so component
+ * tags don't inflate the count. Defaults to 220 wpm — slower than typical
+ * pulp fiction, faster than dense theory; a fair guess for studio prose.
+ */
+export function estimateReadingMinutes(body: string, wpm = 220): number {
+  const plain = body
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\{[^}]*\}/g, " ")
+    .replace(/[#*_`>~\-[\]()!]/g, " ");
+  const words = plain.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / wpm));
+}
 
 /* ------------------------------ loaders ------------------------------ */
 
@@ -116,7 +133,11 @@ export async function getAllPosts(opts: { includeDrafts?: boolean } = {}): Promi
         `Invalid frontmatter in content/blog/${file}: ${parsed.error.message}`,
       );
     }
-    return { ...parsed.data, body: content };
+    return {
+      ...parsed.data,
+      body: content,
+      readingMinutes: estimateReadingMinutes(content),
+    };
   });
   const visible = opts.includeDrafts ? posts : posts.filter((p) => !p.draft);
   return visible.sort((a, b) => b.date.getTime() - a.date.getTime());
