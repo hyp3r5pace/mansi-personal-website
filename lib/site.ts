@@ -112,6 +112,8 @@ export const COPY = {
   },
   footer: {
     eyebrow: "let's make something",
+    prompt: "Have a project in mind?",
+    cta: "Tell me about it",
   },
   projectsPage: {
     eyebrow: "the work",
@@ -129,7 +131,7 @@ export const COPY = {
     eyebrow: "say hello",
     heading: "Send a note",
     intro:
-      "Best way to reach me is email. Commissions, collaborations, press, or a studio visit — write a few lines and I’ll reply within a week.",
+      "Commissions, collaborations, press, or a studio visit — write a few lines below and I’ll reply within a week.",
     directHeading: "Direct",
   },
 } as const;

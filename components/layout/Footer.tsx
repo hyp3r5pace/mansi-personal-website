@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { BackToTop } from "./BackToTop";
+import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 import { SITE, COPY } from "@/lib/site";
 
-const SOCIALS = [
-  ...SITE.socials.map((s) => ({ href: s.href, label: s.label })),
-  { href: `mailto:${SITE.email}`, label: "Email" },
-];
+const SOCIALS = SITE.socials.map((s) => ({ href: s.href, label: s.label }));
 
 export function Footer() {
   return (
@@ -14,11 +12,13 @@ export function Footer() {
         <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="font-accent text-saffron text-2xl">{COPY.footer.eyebrow}</p>
+            <p className="text-paper/70 mt-3 text-sm">{COPY.footer.prompt}</p>
             <Link
               href="/contact"
-              className="font-display mt-2 inline-block text-3xl tracking-tight text-paper italic hover:text-marigold transition-colors sm:text-4xl"
+              className="group font-display mt-1 inline-flex items-center gap-3 text-3xl tracking-tight text-paper italic transition-colors hover:text-marigold sm:text-4xl"
             >
-              {SITE.email}
+              {COPY.footer.cta}
+              <ScribbleArrow className="h-3 w-10 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 

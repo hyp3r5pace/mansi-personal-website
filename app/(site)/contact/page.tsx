@@ -8,14 +8,11 @@ export const metadata: Metadata = {
   description: "Get in touch about commissions, collaborations, or studio visits.",
 };
 
-const SOCIALS = [
-  { label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
-  ...SITE.socials.map((s) => ({
-    label: s.label,
-    value: s.handle,
-    href: s.href,
-  })),
-];
+const SOCIALS = SITE.socials.map((s) => ({
+  label: s.label,
+  value: s.handle,
+  href: s.href,
+}));
 
 export default function ContactPage() {
   return (
