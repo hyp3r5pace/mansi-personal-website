@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllProjects, getProjectBySlug } from "@/lib/mdx";
+import { SITE } from "@/lib/site";
 import { CaseStudyCover } from "@/components/projects/CaseStudyCover";
 import { MetaStrip } from "@/components/projects/MetaStrip";
 import { PaletteSection } from "@/components/projects/PaletteSection";
@@ -25,9 +26,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
+  const url = `/projects/${project.slug}`;
   return {
     title: project.title,
     description: project.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: project.title,
+      description: project.excerpt,
+      url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.excerpt,
+    },
   };
 }
 
@@ -44,8 +58,26 @@ export default async function CaseStudyPage({
   const currentIndex = all.findIndex((p) => p.slug === project.slug);
   const next = all[(currentIndex + 1) % all.length] ?? null;
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    headline: project.title,
+    description: project.excerpt,
+    creator: { "@type": "Person", name: "Bubu" },
+    dateCreated: project.date.toISOString(),
+    keywords: project.tags.join(", "),
+    inLanguage: "en",
+    url: `${SITE.url}/projects/${project.slug}`,
+    genre: project.category,
+  };
+
   return (
     <main className="flex flex-1 flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <CaseStudyCover project={project} />
       <MetaStrip project={project} />
 
