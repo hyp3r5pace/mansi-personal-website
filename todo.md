@@ -163,89 +163,91 @@ Legend:
 
 ---
 
-## Phase 4 — Blog
+## Phase 4 — Blog ✅
 
 ### 4.1 Index
-- [ ] Editorial list: date + title + 1-line excerpt
-- [ ] Tag chips in block-print style
+- [x] Editorial list: date + title + 1-line excerpt
+- [x] Tag chips in block-print style
 
 ### 4.2 Post template
-- [ ] Wide reading column (~70ch)
-- [ ] Drop-cap on first paragraph
-- [ ] `PullQuote` in rose-madder
-- [ ] Footnote support
-- [ ] Reading time estimate
+- [x] Wide reading column (~70ch)
+- [x] Drop-cap on first paragraph
+- [x] `PullQuote` in rose-madder
+- [x] Footnote support (remark-gfm)
+- [x] Reading time estimate
 
 ### 4.3 Feeds
-- [ ] `/rss.xml` route
-- [ ] `/sitemap.xml` route includes blog posts
+- [x] `/rss.xml` route
+- [x] `/sitemap.xml` route includes blog posts
 
 ---
 
-## Phase 5 — About + Contact
+## Phase 5 — About + Contact ✅
 
 ### 5.1 About
-- [ ] Two-column layout: portrait (kantha frame) + bio
-- [ ] Stitched vertical timeline with marigold knots at milestones
-- [ ] "Currently" block (manually editable in MDX)
-- [ ] Optional press / features section
+- [x] Two-column layout: portrait (kantha frame) + bio
+- [x] Stitched vertical timeline with marigold knots at milestones
+- [x] "Currently" block (manually editable in MDX)
+- [x] Optional press / features section
 
 ### 5.2 Contact page
-- [ ] Short note + form (name, email, subject, message)
-- [ ] Form validation (zod + react-hook-form)
-- [ ] Direct contact links (email, Instagram, Behance, LinkedIn)
+- [x] Short note + form (name, email, subject, message)
+- [x] Form validation (zod + react-hook-form)
+- [x] Direct contact links (email, Instagram, Behance, LinkedIn)
 
 ### 5.3 Contact API
-- [ ] `app/api/contact/route.ts`
-- [ ] Resend integration; verify domain or use Resend onboarding domain initially
-- [ ] Honeypot field
-- [ ] Rate limit (IP-based, e.g. Upstash Ratelimit or in-memory for MVP)
-- [ ] Success animation: stitched envelope closes
-- [ ] Error state with retry
+- [x] `app/api/contact/route.ts`
+- [x] Resend integration; verify domain or use Resend onboarding domain initially
+- [x] Honeypot field
+- [x] Rate limit (IP-based, e.g. Upstash Ratelimit or in-memory for MVP)
+- [x] Success animation: stitched envelope closes
+- [x] Error state with retry
 
 ---
 
-## Phase 6 — Quirk Pass
+## Phase 6 — Quirk Pass ✅
 
-- [ ] Choose mascot (peacock / elephant / tailor's mannequin) and illustrate
-- [ ] Mascot idle animation + click reaction
-- [ ] Cursor effect: needle-and-thread trail (desktop only, reduced-motion off)
-- [ ] Scribbled arrows on inter-page transition links
-- [ ] Section headers stitch themselves on scroll-in
-- [ ] **Audit**: each quirk earns its place. Cut anything distracting.
+- [x] Mascot: peacock SVG, idle wing sway, click bow + sparkle, bottom-right, md+ only, hidden under reduced-motion
+- [x] Cursor: needle-and-thread trail (canvas), fine pointer + non-reduced motion only
+- [x] Scribbled arrows on transition links (already on home teasers, journal "all entries", case-study "next project", footer back-to-top)
+- [x] Section heading stitches itself in (`StitchHeading`) — applied once on home "Recent projects" only
+- [x] **Audit** — keeps/cuts:
+  - **Kept**: Mascot (rare, corner, dismissible by ignoring), CursorThread (desktop only, doesn't block input, low-opacity), StitchHeading (used sparingly), ScribbleArrow (already restrained).
+  - **Cut**: Did NOT sprinkle StitchHeading across every section header — that would push past the "one delightful surprise per scroll-screen" budget.
+  - **Cut**: No fabric-swatch peel-back image hover yet — JaliReveal already handles section reveals; doubling up would compete.
 
 ---
 
-## Phase 7 — Polish & Launch
+## Phase 7 — Polish & Launch ✅ (implementation; human verification noted)
 
 ### 7.1 SEO + metadata
-- [ ] Per-page `<title>`, `<meta description>`, OG, Twitter card
-- [ ] `robots.txt`
-- [ ] `sitemap.xml`
-- [ ] Person + CreativeWork structured data
-- [ ] Favicon set (16, 32, 180, 512) + manifest
+- [x] Per-page `<title>`, `<meta description>`, OG, Twitter card (root + project/blog [slug])
+- [x] `robots.ts` (Next 16 file convention)
+- [x] `sitemap.ts` (already shipped Phase 4; includes blog + projects)
+- [x] Person (root) + CreativeWork (projects) + BlogPosting (posts) JSON-LD
+- [x] `manifest.ts` (PWA manifest w/ palette theme + bg)
+- [ ] Favicon set (16/32/180/512) — only default `favicon.ico` ships; replace when final mark is ready
 
 ### 7.2 Performance
-- [ ] LCP < 2.0s on 4G (test via WebPageTest)
-- [ ] CLS < 0.05
-- [ ] AVIF + WebP via `next/image`
-- [ ] Code-split Lenis / Framer where not needed
-- [ ] Font preload only display face
+- [x] `next/image` already used for content imagery (AVIF + WebP auto via next.config)
+- [x] Font preload — only Fraunces (display) preloaded; Inter + Caveat `preload: false`
+- [ ] LCP / CLS targets — needs WebPageTest / Lighthouse run on deployed URL
+- [ ] Code-split Lenis / motion further if profiling shows them on critical path
 
 ### 7.3 Accessibility
-- [ ] All color pairs ≥ AA (axe + manual)
-- [ ] Reduced-motion fallback verified on every animation
-- [ ] Focus rings visible (marigold-deep)
-- [ ] All images have descriptive alt
-- [ ] Keyboard nav: gallery, filters, contact, mobile menu
+- [x] Reduced-motion gating on every animated component (Mascot, CursorThread, StitchHeading, Nav, PageTransition)
+- [x] Focus rings via global `:focus-visible` rule (marigold-deep)
+- [x] All in-tree images have descriptive alt (portrait, project covers — placeholders descriptive)
+- [ ] axe / manual audit on deployed build — needs browser run
 
 ### 7.4 Error pages
-- [ ] Custom 404 ("thread came loose" stitched illustration)
-- [ ] Custom 500
+- [x] Custom 404 (`app/not-found.tsx`) — "That thread came loose" + LooseThread SVG
+- [x] Custom 500 (`app/error.tsx`) — "A stitch dropped" + reset button + digest ref
+- [x] LooseThread illustration component
 
 ### 7.5 Analytics
-- [ ] Plausible or Vercel Analytics installed
-- [ ] Verify no cookie banner needed
+- [x] `@vercel/analytics` installed + mounted in root layout
+- [x] No cookies set by Vercel Analytics — no banner required
 
 ### 7.6 Pre-launch QA
 - [ ] iOS Safari, Android Chrome, desktop Safari, Firefox, Chrome
