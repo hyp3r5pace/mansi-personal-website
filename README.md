@@ -84,6 +84,35 @@ Copy `.env.example` to `.env.local` and fill in:
 > `metadata` export (`app/.../page.tsx`); everything else routes through
 > `lib/site.ts`.
 
+## Importing projects from Behance (Studio admin)
+
+The site owner can import a Behance project without touching code, git, or the
+terminal.
+
+**Using it (owner):**
+1. Go to **`/admin`** and sign in with the studio password.
+2. Paste a Behance project link and press **Import**. The tool fetches the
+   images at their highest resolution, and (if configured) drafts alt text,
+   captions, a cover, and a colour palette.
+3. On the **Review** screen, edit anything — title, web address, date,
+   category, tags, colours, per-image alt/captions, reorder, choose the cover,
+   hide decorative crops.
+4. Press **Publish to site**. The project goes live in a minute or two.
+5. **`/admin/projects`** lists everything with a **Remove** action.
+
+**How it works:** images are stored in Vercel Blob; the project's small MDX
+file is committed to the repo via the GitHub API, which triggers a redeploy.
+The generated file is validated against the project schema before commit, so a
+bad import can't break the site.
+
+**Setup (one-time, developer):** set the admin variables in `.env.example`
+(`ADMIN_PASSWORD`, `SESSION_SECRET`, `ANTHROPIC_API_KEY`,
+`BLOB_READ_WRITE_TOKEN`, `GITHUB_TOKEN`, `GITHUB_REPO`, `GITHUB_BRANCH`). The
+draft import route can take ~30s for image-heavy projects, so its serverless
+function needs `maxDuration` ≥ 60 (Vercel Pro). Without Blob/GitHub tokens the
+importer falls back to writing into `public/` and `content/` locally — handy
+for development.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

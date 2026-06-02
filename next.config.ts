@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "cdn.sanity.io" },
+      // Vercel Blob — ingested project imagery (production).
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
 };

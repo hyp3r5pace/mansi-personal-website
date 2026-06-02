@@ -52,7 +52,7 @@ const CoverImageSchema = z.object({
   bare: z.boolean().optional(),
 });
 
-const ProjectFrontmatterSchema = z.object({
+export const ProjectFrontmatterSchema = z.object({
   title: z.string(),
   slug: z.string(),
   date: z.coerce.date(),
