@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { EditorialPlaceholder } from "@/components/home/EditorialPlaceholder";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 import type { Project } from "@/lib/mdx";
@@ -30,14 +31,26 @@ export function NextProject({ next }: { next: Project }) {
               <ScribbleArrow className="h-3 w-9 transition-transform group-hover:translate-x-1" />
             </p>
           </div>
-          <EditorialPlaceholder
-            className="order-1 lg:order-2"
-            title={next.title}
-            palette={next.palette}
-            category={next.category}
-            year={next.year}
-            ratio="landscape"
-          />
+          {next.coverImage ? (
+            <div className="ring-char-ink/10 relative order-1 aspect-[4/3] w-full overflow-hidden rounded-sm ring-1 lg:order-2">
+              <Image
+                src={next.coverImage.src}
+                alt={next.title}
+                fill
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+          ) : (
+            <EditorialPlaceholder
+              className="order-1 lg:order-2"
+              title={next.title}
+              palette={next.palette}
+              category={next.category}
+              year={next.year}
+              ratio="landscape"
+            />
+          )}
         </Link>
       </div>
     </section>
