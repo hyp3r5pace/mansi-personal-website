@@ -75,8 +75,8 @@ export const SITE = {
   /** External profiles. Email is handled separately via `email`. */
   socials: [
     { label: "Instagram", handle: "@ansh_kinsu", href: "https://www.instagram.com/ansh_kinsu/" },
-    { label: "Behance", handle: "mansi", href: "https://behance.net/" },
-    { label: "LinkedIn", handle: "mansi", href: "https://linkedin.com/" },
+    { label: "Behance", handle: "mansipandey3", href: "https://www.behance.net/mansipandey3" },
+    { label: "LinkedIn", handle: "Mansi Pandey", href: "https://www.linkedin.com/in/mansi-pandey-04276920b/" },
   ],
   whatsappGreeting: WHATSAPP_GREETING,
 } as const;
