@@ -60,14 +60,14 @@ export const SITE = {
   copyrightLine: "Drawn, dyed, and stitched in India.",
   /** Headline + subhead rendered on the home Open Graph image. */
   ogHeadline: "Textile-led fashion, made slowly.",
-  ogSubhead: "Block print, kantha, natural dye. Jaipur · Delhi.",
+  ogSubhead: "Block print, kantha, natural dye. New Delhi.",
 
   // ── Location ───────────────────────────────────────────────────
   location: {
     /** Short label, e.g. shown as a hero eyebrow. */
-    eyebrow: "jaipur · delhi",
+    eyebrow: "new delhi",
     /** Full sentence shown on the contact page. */
-    line: "Based in Jaipur — open to travel.",
+    line: "Based in Delhi — open to travel.",
   },
 
   // ── Contact ────────────────────────────────────────────────────
