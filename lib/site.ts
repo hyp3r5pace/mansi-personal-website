@@ -74,7 +74,7 @@ export const SITE = {
   email: EMAIL,
   /** External profiles. Email is handled separately via `email`. */
   socials: [
-    { label: "Instagram", handle: "@mansi.studio", href: "https://instagram.com/" },
+    { label: "Instagram", handle: "@ansh_kinsu", href: "https://www.instagram.com/ansh_kinsu/" },
     { label: "Behance", handle: "mansi", href: "https://behance.net/" },
     { label: "LinkedIn", handle: "mansi", href: "https://linkedin.com/" },
   ],
