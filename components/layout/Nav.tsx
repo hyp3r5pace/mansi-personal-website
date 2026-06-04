@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 import { JaliReveal } from "@/components/motion/JaliReveal";
 
 const NAV_LINKS = [
@@ -15,6 +15,11 @@ const NAV_LINKS = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
+
+// Hide blog-gated links when the feature is off.
+const VISIBLE_LINKS = NAV_LINKS.filter(
+  (l) => FEATURES.blog || l.href !== "/blog",
+);
 
 export function Nav() {
   const pathname = usePathname();
@@ -61,7 +66,7 @@ export function Nav() {
             </Link>
 
             <ul className="hidden items-center gap-8 md:flex">
-              {NAV_LINKS.map((l) => {
+              {VISIBLE_LINKS.map((l) => {
                 const active = isActive(l.href);
                 return (
                   <li key={l.href}>
@@ -140,7 +145,7 @@ export function Nav() {
               </button>
             </div>
             <ul className="relative mt-12 flex flex-col items-center gap-6 px-6">
-              {NAV_LINKS.map((l, i) => (
+              {VISIBLE_LINKS.map((l, i) => (
                 <motion.li
                   key={l.href}
                   initial={reduced ? false : { opacity: 0, y: 12 }}

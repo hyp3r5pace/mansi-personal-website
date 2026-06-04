@@ -139,6 +139,13 @@ export const COPY = {
 /** Bare domain without protocol, for display (e.g. "mansi.studio"). */
 export const SITE_DOMAIN = SITE.url.replace(/^https?:\/\//, "");
 
+/**
+ * Feature flags. `blog` hides the entire journal/blog section (nav, home
+ * teaser, footer RSS, routes, sitemap, feed) without deleting any code or
+ * content — flip to `true` to bring it back exactly as before.
+ */
+export const FEATURES = { blog: false } as const;
+
 /** Default `<title>` ("Mansi — Fashion Designer"). */
 export const TITLE_DEFAULT = `${SITE.author} — ${SITE.role}`;
 /** Title template for inner pages ("%s · Mansi"). */

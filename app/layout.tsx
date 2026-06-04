@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { SITE, TITLE_DEFAULT, TITLE_TEMPLATE } from "@/lib/site";
+import { SITE, TITLE_DEFAULT, TITLE_TEMPLATE, FEATURES } from "@/lib/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -58,9 +58,13 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
-    types: {
-      "application/rss+xml": [{ url: "/rss.xml", title: "Journal RSS" }],
-    },
+    ...(FEATURES.blog
+      ? {
+          types: {
+            "application/rss+xml": [{ url: "/rss.xml", title: "Journal RSS" }],
+          },
+        }
+      : {}),
   },
 };
 

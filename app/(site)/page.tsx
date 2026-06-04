@@ -3,6 +3,7 @@ import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { JournalTeaser } from "@/components/home/JournalTeaser";
 import { Reveal } from "@/components/motion/Reveal";
+import { FEATURES } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -14,9 +15,11 @@ export default function Home() {
       <Reveal>
         <AboutTeaser />
       </Reveal>
-      <Reveal>
-        <JournalTeaser />
-      </Reveal>
+      {FEATURES.blog ? (
+        <Reveal>
+          <JournalTeaser />
+        </Reveal>
+      ) : null}
     </main>
   );
 }

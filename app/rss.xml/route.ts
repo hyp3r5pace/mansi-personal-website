@@ -1,5 +1,5 @@
 import { getAllPosts } from "@/lib/mdx";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 
 export const dynamic = "force-static";
 
@@ -13,6 +13,9 @@ function escapeXml(input: string): string {
 }
 
 export async function GET(): Promise<Response> {
+  if (!FEATURES.blog) {
+    return new Response("Not found", { status: 404 });
+  }
   const posts = await getAllPosts();
 
   const items = posts

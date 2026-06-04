@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getAllProjects } from "@/lib/mdx";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [projects, posts] = await Promise.all([
@@ -13,7 +13,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE.url}/`, lastModified: now, changeFrequency: "monthly", priority: 1 },
     { url: `${SITE.url}/projects`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE.url}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    ...(FEATURES.blog
+      ? [
+          {
+            url: `${SITE.url}/blog`,
+            lastModified: now,
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+          },
+        ]
+      : []),
     { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
     { url: `${SITE.url}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
   ];
@@ -25,12 +34,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  const postRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${SITE.url}/blog/${p.slug}`,
-    lastModified: p.date,
-    changeFrequency: "yearly",
-    priority: 0.6,
-  }));
+  const postRoutes: MetadataRoute.Sitemap = FEATURES.blog
+    ? posts.map((p) => ({
+        url: `${SITE.url}/blog/${p.slug}`,
+        lastModified: p.date,
+        changeFrequency: "yearly" as const,
+        priority: 0.6,
+      }))
+    : [];
 
   return [...staticRoutes, ...projectRoutes, ...postRoutes];
 }

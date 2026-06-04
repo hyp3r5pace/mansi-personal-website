@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
-import { SITE_DOMAIN } from "@/lib/site";
+import { SITE_DOMAIN, FEATURES } from "@/lib/site";
 
 export const alt = "Journal entry";
 export const size = { width: 1200, height: 630 };
@@ -13,6 +13,7 @@ const dateFmt = new Intl.DateTimeFormat("en-IN", {
 });
 
 export async function generateStaticParams() {
+  if (!FEATURES.blog) return [];
   const posts = await getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }

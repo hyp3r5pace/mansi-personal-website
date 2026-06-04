@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BackToTop } from "./BackToTop";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
-import { SITE, COPY } from "@/lib/site";
+import { SITE, COPY, FEATURES } from "@/lib/site";
 
 const SOCIALS = SITE.socials.map((s) => ({ href: s.href, label: s.label }));
 
@@ -43,12 +43,14 @@ export function Footer() {
             © {new Date().getFullYear()} {SITE.author}. {SITE.copyrightLine}
           </p>
           <div className="flex items-center gap-6">
-            <a
-              href="/rss.xml"
-              className="opacity-70 hover:text-marigold hover:opacity-100 transition-colors"
-            >
-              RSS
-            </a>
+            {FEATURES.blog ? (
+              <a
+                href="/rss.xml"
+                className="opacity-70 hover:text-marigold hover:opacity-100 transition-colors"
+              >
+                RSS
+              </a>
+            ) : null}
             <BackToTop />
           </div>
         </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
-import { SITE } from "@/lib/site";
+import { SITE, FEATURES } from "@/lib/site";
 import { PostRenderer } from "@/components/blog/PostRenderer";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 
@@ -15,6 +15,7 @@ const dateFmt = new Intl.DateTimeFormat("en-IN", {
 });
 
 export async function generateStaticParams(): Promise<RouteParams[]> {
+  if (!FEATURES.blog) return [];
   const posts = await getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
@@ -53,6 +54,7 @@ export default async function BlogPostPage({
 }: {
   params: Promise<RouteParams>;
 }) {
+  if (!FEATURES.blog) notFound();
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) notFound();

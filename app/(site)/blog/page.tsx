@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import { getAllPosts } from "@/lib/mdx";
 import { JournalBrowser } from "@/components/blog/JournalBrowser";
-import { COPY } from "@/lib/site";
+import { COPY, FEATURES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Journal",
   description: "Process notes, mistakes worth remembering, and studio conversation.",
+  robots: FEATURES.blog ? undefined : { index: false, follow: false },
 };
 
 export default async function BlogPage() {
+  if (!FEATURES.blog) notFound();
   const posts = await getAllPosts();
 
   return (
