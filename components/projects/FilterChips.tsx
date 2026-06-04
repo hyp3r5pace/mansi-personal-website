@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/cn";
 
@@ -15,10 +16,11 @@ function parseList(value: string | null): string[] {
 }
 
 /**
- * URL-synced filter chips for the projects index. Three groups:
- * category, year, and tag. Each group is multi-select — clicking a chip
- * toggles its membership in a comma-separated param. Filtering is OR
- * within a group, AND across groups. router.replace keeps back/forward.
+ * URL-synced filter chips for the projects index. Three groups: category,
+ * year, and tag. Each is multi-select — clicking a chip toggles its
+ * membership in a comma-separated param. Filtering is OR within a group, AND
+ * across groups. The tag group collapses its long tail into a "more"
+ * dropdown so it doesn't swamp the page. router.replace keeps back/forward.
  */
 export function FilterChips({ categories, years, tags }: FilterChipsProps) {
   const router = useRouter();
@@ -64,6 +66,7 @@ export function FilterChips({ categories, years, tags }: FilterChipsProps) {
         items={tags}
         active={activeTags}
         onToggle={(v) => toggleParam("tag", v)}
+        maxVisible={8}
       />
       {hasFilter ? (
         <button
@@ -78,42 +81,117 @@ export function FilterChips({ categories, years, tags }: FilterChipsProps) {
   );
 }
 
+function Chip({
+  label,
+  active,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "stitch-border px-3 py-1 text-sm transition-colors",
+        active
+          ? "bg-ink-indigo text-paper border-ink-indigo"
+          : "bg-paper text-ink-indigo hover:bg-paper-deep",
+      )}
+    >
+      {label}
+    </button>
+  );
+}
+
 function ChipGroup({
   label,
   items,
   active,
   onToggle,
+  maxVisible,
 }: {
   label: string;
   items: string[];
   active: string[];
   onToggle: (v: string) => void;
+  /** When set and exceeded, the overflow goes into a "more" dropdown. */
+  maxVisible?: number;
 }) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   if (items.length === 0) return null;
+
+  // Active items are always pinned to the visible row; the rest fill up to
+  // maxVisible, and anything beyond goes into the dropdown.
+  let visible = items;
+  let hidden: string[] = [];
+  if (maxVisible && items.length > maxVisible) {
+    const pinned = items.filter((i) => active.includes(i));
+    const rest = items.filter((i) => !active.includes(i));
+    const fill = rest.slice(0, Math.max(0, maxVisible - pinned.length));
+    visible = [...pinned, ...fill];
+    hidden = rest.slice(fill.length);
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       <span className="text-char-ink/55 mr-1 font-mono text-[10px] uppercase tracking-widest">
         {label}
       </span>
-      {items.map((item) => {
-        const isActive = active.includes(item);
-        return (
+      {visible.map((item) => (
+        <Chip
+          key={item}
+          label={item}
+          active={active.includes(item)}
+          onClick={() => onToggle(item)}
+        />
+      ))}
+
+      {hidden.length > 0 ? (
+        <div ref={wrapRef} className="relative">
           <button
-            key={item}
             type="button"
-            onClick={() => onToggle(item)}
-            aria-pressed={isActive}
-            className={cn(
-              "stitch-border px-3 py-1 text-sm transition-colors",
-              isActive
-                ? "bg-ink-indigo text-paper border-ink-indigo"
-                : "bg-paper text-ink-indigo hover:bg-paper-deep",
-            )}
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            className="stitch-border text-char-ink/70 hover:bg-paper-deep border-dashed px-3 py-1 text-sm transition-colors"
           >
-            {item}
+            {open ? "fewer" : `+${hidden.length} more`}
           </button>
-        );
-      })}
+          {open ? (
+            <div className="border-char-ink/20 bg-paper absolute left-0 z-20 mt-2 flex max-h-64 w-64 flex-wrap content-start gap-2 overflow-y-auto rounded-sm border p-3 shadow-lg sm:w-80">
+              {hidden.map((item) => (
+                <Chip
+                  key={item}
+                  label={item}
+                  active={active.includes(item)}
+                  onClick={() => onToggle(item)}
+                />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

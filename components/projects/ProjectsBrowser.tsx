@@ -35,10 +35,16 @@ export function ProjectsBrowser({ projects }: ProjectsBrowserProps) {
     () => Array.from(new Set(projects.map((p) => p.year))).sort((a, b) => b - a),
     [projects],
   );
-  const tags = useMemo(
-    () => Array.from(new Set(projects.flatMap((p) => p.tags))).sort(),
-    [projects],
-  );
+  // Most-used tags first (then alphabetical) so the visible few are the
+  // most useful; the long tail goes into the "more" dropdown.
+  const tags = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const p of projects)
+      for (const t of p.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([t]) => t);
+  }, [projects]);
 
   const filtered = useMemo(() => {
     const cats = parseList(categoryParam);
