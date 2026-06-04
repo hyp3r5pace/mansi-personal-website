@@ -39,17 +39,17 @@ export const SITE = {
     "A working studio for craft-led fashion. Process notes, projects, and the occasional conversation.",
   /** Longer description used for SEO meta + structured data. */
   seoDescription:
-    "Textile-led fashion designer working between Jaipur, Bagru, and Sanganer. Block print, kantha, natural dye, and considered everyday wear.",
+    "Fashion and textile designer based in New Delhi — craft-led collections in handloom, aari and banjara embroidery, jamdani, and block print.",
   /** Meta keywords for search engines. */
   keywords: [
     "fashion designer",
-    "natural dye",
+    "textile designer",
+    "handloom",
+    "aari embroidery",
+    "jamdani",
     "block print",
-    "kantha",
     "Indian craft",
-    "textile",
-    "Jaipur",
-    "Delhi",
+    "New Delhi",
   ],
 
   // ── Brand copy ─────────────────────────────────────────────────
