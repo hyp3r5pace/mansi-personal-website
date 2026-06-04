@@ -51,20 +51,15 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   const ip = getClientIp(req);
 
-  // Turnstile: prove a human before we touch the mail service.
+  // Turnstile: prove a human before we touch the mail service. Optional —
+  // when no secret is configured we fall back to the honeypot + rate limit,
+  // so the form still works. When configured, a valid token is required.
   const token = (body as { turnstileToken?: unknown }).turnstileToken;
   const turnstile = await verifyTurnstile(
     typeof token === "string" ? token : undefined,
     ip,
   );
-  if (!turnstile.ok) {
-    if (turnstile.reason === "missing-secret") {
-      console.error("[contact] TURNSTILE_SECRET_KEY not configured");
-      return NextResponse.json(
-        { error: "Verification unavailable. Please email me directly." },
-        { status: 503 },
-      );
-    }
+  if (!turnstile.ok && turnstile.reason !== "missing-secret") {
     return NextResponse.json(
       { error: "Verification failed. Please try again." },
       { status: 403 },
