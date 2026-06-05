@@ -10,7 +10,7 @@
  * the production domain is known.
  */
 
-const EMAIL = "hello@example.com";
+const EMAIL = "hello@mansi.work";
 
 /** Default greeting pre-filled into the WhatsApp chat. */
 const WHATSAPP_GREETING =
@@ -31,7 +31,7 @@ export const SITE = {
   /** Wordmark rendered in the nav and hero. */
   wordmark: "Mansi",
   /** Person's name for authorship / structured data. */
-  author: "Mansi",
+  author: "Mansi Pandey",
   /** Professional role; pairs with the name in page titles. */
   role: "Fashion Designer",
   /** One-line site description for meta + feeds. */
@@ -101,7 +101,7 @@ export const COPY = {
   aboutTeaser: {
     eyebrow: "about",
     heading: "The hand makes the cloth, the cloth makes the piece.",
-    body: "Trained in Delhi, working across small craft clusters in Rajasthan and Bengal. The studio runs at the speed of the cloth — most collections take six to nine months from first sketch to final piece.",
+    body: "A fashion and textile designer trained at NIFT, now designing at péro in New Delhi. Her own collections work in handloom, jamdani, block print, and hand embroidery — made slowly, in small craft clusters across India.",
     link: "More about me",
     imageTitle: "Portrait, with thread.",
   },
