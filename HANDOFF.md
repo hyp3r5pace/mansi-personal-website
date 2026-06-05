@@ -53,8 +53,9 @@ Socials are real (Instagram @ansh_kinsu, Behance mansipandey3, LinkedIn).
   (`KanthaPortrait`, q90). Bio/timeline/`currently` now hold her **real**
   info (sourced from LinkedIn/Behance, Jun 5): fashion & textile designer,
   New Delhi; B.Des Fashion Design from **NIFT** (2018–22, couture/styling);
-  currently **Fashion Designer at péro**; past internships MAKU Textiles /
-  Topstitch / Sri Suvarna Mandir; grad collection = B.R.A.T. `press: []`
+  career: **MAKU Textiles** (Kolkata, 2022–24) → **péro** (New Delhi,
+  2024–26) → **Lead Fashion Designer at Dressfolk** (dressfolk.com, Mar 2026–
+  now, handloom label); grad collection = B.R.A.T. `press: []`
   (none real → section hidden). Site email + `author` in `lib/site.ts` also
   set to real (`hello@mansi.work`, "Mansi Pandey"). ⚠ LinkedIn itself blocks
   scrapers (HTTP 999) — use WebSearch + Behance (public) to source her facts.

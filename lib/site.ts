@@ -101,7 +101,7 @@ export const COPY = {
   aboutTeaser: {
     eyebrow: "about",
     heading: "The hand makes the cloth, the cloth makes the piece.",
-    body: "A fashion and textile designer trained at NIFT, now designing at péro in New Delhi. Her own collections work in handloom, jamdani, block print, and hand embroidery — made slowly, in small craft clusters across India.",
+    body: "A fashion and textile designer trained at NIFT — designer at MAKU Textiles and péro, now Lead Fashion Designer at Dressfolk. Her own collections work in handloom, jamdani, block print, and hand embroidery — made slowly, in small craft clusters across India.",
     link: "More about me",
     imageTitle: "Portrait, with thread.",
   },
