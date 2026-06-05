@@ -50,8 +50,14 @@ Socials are real (Instagram @ansh_kinsu, Behance mansipandey3, LinkedIn).
   footer RSS, `/blog`+`/blog/[slug]` (404), blog OG images, sitemap, `/rss.xml`,
   layout RSS alternate all gate on it. Flip to `true` to restore everything.
 - **About**: `content/about.mdx`. Real portrait at `public/about/mansi.jpg`
-  (`KanthaPortrait`, q90). ⚠ The bio/timeline text is still **fictional
-  placeholder** — needs her real bio.
+  (`KanthaPortrait`, q90). Bio/timeline/`currently` now hold her **real**
+  info (sourced from LinkedIn/Behance, Jun 5): fashion & textile designer,
+  New Delhi; B.Des Fashion Design from **NIFT** (2018–22, couture/styling);
+  currently **Fashion Designer at péro**; past internships MAKU Textiles /
+  Topstitch / Sri Suvarna Mandir; grad collection = B.R.A.T. `press: []`
+  (none real → section hidden). Site email + `author` in `lib/site.ts` also
+  set to real (`hello@mansi.work`, "Mansi Pandey"). ⚠ LinkedIn itself blocks
+  scrapers (HTTP 999) — use WebSearch + Behance (public) to source her facts.
 
 ## Projects index UI (gotchas baked in)
 - **Row-major CSS grid**, uniform `aspect-[4/5]` tiles (`ProjectsGrid`). Do NOT
