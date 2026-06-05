@@ -23,6 +23,7 @@ export function KanthaPortrait({ src, alt, className }: KanthaPortraitProps) {
             alt={alt}
             fill
             sizes="(min-width: 640px) 18rem, 100vw"
+            quality={90}
             className="object-cover"
           />
         ) : (
