@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HeroBorder } from "./HeroBorder";
-import { EditorialPlaceholder } from "./EditorialPlaceholder";
 import { JaliReveal } from "@/components/motion/JaliReveal";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 import { SITE, COPY } from "@/lib/site";
@@ -48,17 +48,15 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="text-ink-indigo relative p-6 sm:p-7">
             <HeroBorder />
-            <EditorialPlaceholder
-              title={COPY.hero.imageTitle}
-              category="Studio"
-              year={2026}
-              palette={[
-                { name: "indigo", hex: "#1F2A56" },
-                { name: "madder", hex: "#B5495B" },
-                { name: "marigold", hex: "#E8A33D" },
-                { name: "paper", hex: "#F6EFE2" },
-              ]}
-              ratio="portrait"
+            <Image
+              src="/home/home_page.jpg"
+              alt="Mansi Pandey pinning fashion sketches across a studio design wall"
+              width={1200}
+              height={1600}
+              quality={90}
+              priority
+              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 28rem, 100vw"
+              className="h-auto w-full object-cover"
             />
           </div>
           <p className="font-accent text-rose-madder mt-3 text-xl">

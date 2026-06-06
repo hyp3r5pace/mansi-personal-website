@@ -59,6 +59,12 @@ Socials are real (Instagram @ansh_kinsu, Behance mansipandey3, LinkedIn).
   (none real → section hidden). Site email + `author` in `lib/site.ts` also
   set to real (`hello@mansi.work`, "Mansi Pandey"). ⚠ LinkedIn itself blocks
   scrapers (HTTP 999) — use WebSearch + Behance (public) to source her facts.
+- **Home hero image**: real photo at `public/home/home_page.jpg` (1200×1600
+  portrait, EXIF orientation already normal — no strip needed), wired into
+  `components/home/Hero.tsx` via `next/image` (q90, `priority`), replacing the
+  `EditorialPlaceholder`. It's a process shot (Mansi at her design wall). The
+  home **AboutTeaser** square + the **About** page already have her; hero =
+  the work. `EditorialPlaceholder` still used by AboutTeaser.
 
 ## Projects index UI (gotchas baked in)
 - **Row-major CSS grid**, uniform `aspect-[4/5]` tiles (`ProjectsGrid`). Do NOT
