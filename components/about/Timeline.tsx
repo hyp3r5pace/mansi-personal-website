@@ -24,7 +24,7 @@ export function Timeline({ entries }: TimelineProps) {
           key={`${entry.year}-${i}`}
           className="relative grid grid-cols-[6.5rem_1fr] gap-5 py-6 sm:grid-cols-[7.5rem_1fr] sm:gap-8"
         >
-          <span className="font-display text-rose-madder text-right text-base italic leading-none whitespace-nowrap sm:text-lg">
+          <span className="font-display text-rose-madder pr-4 text-right text-base italic leading-none whitespace-nowrap sm:text-lg">
             {entry.year}
           </span>
 
