@@ -16,22 +16,22 @@ export function Timeline({ entries }: TimelineProps) {
       {/* Stitch line — sits in the gutter; dashed border emulates kantha */}
       <span
         aria-hidden
-        className="border-char-ink/30 absolute top-2 bottom-2 left-[5.25rem] border-l border-dashed sm:left-24"
+        className="border-char-ink/30 absolute top-2 bottom-2 left-[6.75rem] border-l border-dashed sm:left-[7.75rem]"
       />
 
       {entries.map((entry, i) => (
         <li
           key={`${entry.year}-${i}`}
-          className="relative grid grid-cols-[5rem_1fr] gap-6 py-6 sm:grid-cols-[6rem_1fr] sm:gap-8"
+          className="relative grid grid-cols-[6.5rem_1fr] gap-5 py-6 sm:grid-cols-[7.5rem_1fr] sm:gap-8"
         >
-          <span className="font-display text-rose-madder text-right text-2xl italic">
+          <span className="font-display text-rose-madder text-right text-base italic leading-none whitespace-nowrap sm:text-lg">
             {entry.year}
           </span>
 
           {/* Marigold knot, centered on the line */}
           <span
             aria-hidden
-            className="bg-marigold-deep ring-paper absolute top-9 left-[4.85rem] h-3 w-3 rounded-full ring-4 sm:left-[5.65rem]"
+            className="bg-marigold-deep ring-paper absolute top-9 left-[6.375rem] h-3 w-3 rounded-full ring-4 sm:left-[7.375rem]"
           />
 
           <div className="pl-4 sm:pl-6">
