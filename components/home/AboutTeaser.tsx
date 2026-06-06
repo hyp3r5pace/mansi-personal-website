@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ScribbleArrow } from "@/components/motion/ScribbleArrow";
 import { StitchBorder } from "@/components/motion/StitchBorder";
-import { EditorialPlaceholder } from "./EditorialPlaceholder";
 import { COPY } from "@/lib/site";
 
 export function AboutTeaser() {
@@ -17,15 +17,14 @@ export function AboutTeaser() {
             radius={3}
             className="p-3"
           >
-            <EditorialPlaceholder
-              title={COPY.aboutTeaser.imageTitle}
-              category="About"
-              palette={[
-                { name: "indigo", hex: "#1F2A56" },
-                { name: "leaf", hex: "#6B8E4E" },
-                { name: "paper", hex: "#F6EFE2" },
-              ]}
-              ratio="square"
+            <Image
+              src="/home/home_bottom_page.jpg"
+              alt="Mansi Pandey draping a linen garment on a dress form in the studio"
+              width={960}
+              height={1280}
+              quality={90}
+              sizes="(min-width: 768px) 38vw, 100vw"
+              className="h-auto w-full object-cover"
             />
           </StitchBorder>
         </div>

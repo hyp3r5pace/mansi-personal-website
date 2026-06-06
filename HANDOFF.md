@@ -62,9 +62,14 @@ Socials are real (Instagram @ansh_kinsu, Behance mansipandey3, LinkedIn).
 - **Home hero image**: real photo at `public/home/home_page.jpg` (1200×1600
   portrait, EXIF orientation already normal — no strip needed), wired into
   `components/home/Hero.tsx` via `next/image` (q90, `priority`), replacing the
-  `EditorialPlaceholder`. It's a process shot (Mansi at her design wall). The
-  home **AboutTeaser** square + the **About** page already have her; hero =
-  the work. `EditorialPlaceholder` still used by AboutTeaser.
+  `EditorialPlaceholder`. It's a process shot (Mansi at her design wall).
+- **Home AboutTeaser image**: real photo at `public/home/home_bottom_page.jpg`
+  (960×1280 portrait, EXIF normal), wired into `components/home/AboutTeaser.tsx`
+  via `next/image` (q90), replacing its `EditorialPlaceholder` square. Mansi
+  draping a garment on a dress form. Shown uncropped (3:4), not square.
+- `EditorialPlaceholder` is no longer on the home page but is still used by
+  project components (`ProjectTile`, `CaseStudyCover`, `ProjectsGrid`,
+  `NextProject`, `ProcessRow`, `MoodBoard`) — keep it.
 
 ## Projects index UI (gotchas baked in)
 - **Row-major CSS grid**, uniform `aspect-[4/5]` tiles (`ProjectsGrid`). Do NOT
